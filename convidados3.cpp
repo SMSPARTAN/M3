@@ -69,7 +69,7 @@ std::string converterParaMinuscula(std::string &str)                        // f
 
 int indexConvidado(std::vector<Convidado> &vec,std::string &str)            // Retorna a posição (index) da string desejada dentro de um vetor
 {
-    int index = 0;                                                          // define uma variável int para guardar a posição do index
+    int index = -1;                                                          // define uma variável int para guardar a posição do index
     for(int i = 0; i < vec.size(); i++)
     {
         if(converterParaMinuscula(str) == converterParaMinuscula(vec[i].nome))   // verifica se a string digitada está no vetor comparando ela com cada posição do vetor (vec[i].nome)
@@ -89,7 +89,7 @@ void adicionarParaLista(std::vector<Convidado> &vec, std::string &str, std::fstr
         str = stringApagarEspacosNoFinal(str);                                           
         if(converterParaMinuscula(str) == "fim")                            // converte a string convidado pra minúscula e verifica se é igual a fim, se for, quebra o loop.s
         {
-            file.open("lista de convidados.txt", std::ios::out);            // abre a lista de convidados em modo output (digitar na lista) 
+            file.open("teste.txt", std::ios::out);            // abre a lista de convidados em modo output (digitar na lista) 
             for(Convidado &nome : vec)                                      // para salvar os nomes que foram escritos dentro do vetor
             {
                 file << nome.nome << " " << nome.confirmado << '\n';        // escreve os nomes dentro do vetor 1 por linha
@@ -121,7 +121,7 @@ void confirmarPresenca(std::vector<Convidado> &vec, std::string &str,std::fstrea
                 convidado.confirmado = "1";
             }
         }
-        file.open("lista de convidados.txt", std::ios::out);
+        file.open("teste.txt", std::ios::out);
         for(Convidado &convidado : vec)
         {
             file << convidado.nome << " " << convidado.confirmado << '\n';
@@ -149,11 +149,25 @@ void removerDaLista(std::vector<Convidado> &vec, std::string &str, std::fstream 
             break;
         }
 
-        std::vector<Convidado>::iterator it = vec.begin();                  // define um iterador para o inicio do vetor
-        std::advance(it, indexConvidado(vec, str));                         // usa a função std::advance para avançar o iterador para alguma posição do vetor, neste caso
-                                                                            // é usada a função indexConvidado() para encontrar a posição onde o nome a ser removido da lista
-        vec.erase(it);                                                      // se encontra dentor do vetor e usa a função 'vector.erase()' para apagar o item na posição   
-    }                                                                       // na qual o iterador aponta
+        int index = indexConvidado(vec, str);                                   
+
+        if(index == -1)                                                         // verifica se o nome especificado existe no vetor, se não existir, retorna um erro
+        {
+            std::cout << "\n\n -- Convidado Não Está na Lista! -- \n\n";
+        }
+
+        else                                                                    // se o nome existir na lista, deleta o convidado especificado     
+        {
+            index = indexConvidado(vec, str);
+
+            std::vector<Convidado>::iterator it = vec.begin();                  // define um iterador para o inicio do vetor
+            std::advance(it, index);                                            // usa a função std::advance para avançar o iterador para alguma posição do vetor, neste caso
+                                                                                // é usada a função indexConvidado() para encontrar a posição onde o nome a ser removido da lista
+            vec.erase(it);                                                      // se encontra dentor do vetor e usa a função 'vector.erase()' para apagar o item na posição                                                                                   
+        }                                                                       // na qual o iterador aponta
+
+        std::cout << '\n';
+    }
 }
 
 void pesquisarNaLista(std::vector<Convidado> &vec, std::string &str)
@@ -241,7 +255,7 @@ int main()
 {
     setlocale(LC_ALL, ("pt_BR.UTF-8"));                                    // define o locale para pt_BR para imprimir caracteres do alfabeto Português
 
-    listaConvidados.open("lista de convidados.txt", std::ios::in);              // abre o arquivo lista de convidados.txt e verifica se ele está vazio
+    listaConvidados.open("teste.txt", std::ios::in);              // abre o arquivo teste.txt e verifica se ele está vazio
     if(listaConvidados.peek() != EOF)                                           // se não está vazio, pega o nome de todos os convidados e os armazena no vetor 
     {
         while(std::getline(listaConvidados, convidado)) 
