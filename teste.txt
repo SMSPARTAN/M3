@@ -6,5 +6,5 @@ Morgott The Omen King 1
 Godrick The Grafted 0
 Dragonlord Placidusax 0
 Maliketh The Black Blade 1
-Lunar Princess Ranni 1
-Miquella The Kind 1
+Lunar Princess Ranni 0
+Miquella The Kind 0
