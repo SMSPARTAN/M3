@@ -89,7 +89,7 @@ void adicionarParaLista(std::vector<Convidado> &vec, std::string &str, std::fstr
         str = stringApagarEspacosNoFinal(str);                                           
         if(converterParaMinuscula(str) == "fim")                            // converte a string convidado pra minúscula e verifica se é igual a fim, se for, quebra o loop.s
         {
-            file.open("teste.txt", std::ios::out);            // abre a lista de convidados em modo output (digitar na lista) 
+            file.open("lista de convidados.txt", std::ios::out);            // abre a lista de convidados em modo output (digitar na lista) 
             for(Convidado &nome : vec)                                      // para salvar os nomes que foram escritos dentro do vetor
             {
                 file << nome.nome << " " << nome.confirmado << '\n';        // escreve os nomes dentro do vetor 1 por linha
@@ -121,7 +121,7 @@ void confirmarPresenca(std::vector<Convidado> &vec, std::string &str,std::fstrea
                 convidado.confirmado = "1";
             }
         }
-        file.open("teste.txt", std::ios::out);
+        file.open("lista de convidados.txt", std::ios::out);
         for(Convidado &convidado : vec)
         {
             file << convidado.nome << " " << convidado.confirmado << '\n';
@@ -139,7 +139,7 @@ void removerDaLista(std::vector<Convidado> &vec, std::string &str, std::fstream 
 
         if(converterParaMinuscula(str) == "fim")                            // verifica se o usuário digitou 'fim' para encerrar o programa
         {
-            file.open("teste.txt", std::ios::out);                          // se o usuário digitar'fim' abre a lista de convidados e escreve todos os nomes
+            file.open("lista de convidados.txt", std::ios::out);                          // se o usuário digitar'fim' abre a lista de convidados e escreve todos os nomes
             for(Convidado &nome : vec)                                      // dentro vetor na lista de convidados
             {
                 file << nome.nome << " " << nome.confirmado << '\n';
@@ -255,7 +255,7 @@ int main()
 {
     setlocale(LC_ALL, ("pt_BR.UTF-8"));                                    // define o locale para pt_BR para imprimir caracteres do alfabeto Português
 
-    listaConvidados.open("teste.txt", std::ios::in);              // abre o arquivo teste.txt e verifica se ele está vazio
+    listaConvidados.open("lista de convidados.txt", std::ios::in);              // abre o arquivo lista de convidados.txt e verifica se ele está vazio
     if(listaConvidados.peek() != EOF)                                           // se não está vazio, pega o nome de todos os convidados e os armazena no vetor 
     {
         while(std::getline(listaConvidados, convidado)) 
